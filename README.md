@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# SeriesVerse
+Welcome to SeriesVerse, the ultimate destination for all your web series needs. Explore a vast collection across genres, with detailed info on cast and directors. Personalize your experience by adding favorites to your watchlist. Immerse yourself in the enchanting universe of web series. Your ultimate destination for series lovers.
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -68,3 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ -->
