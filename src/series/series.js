@@ -174,6 +174,8 @@ function Series(props) {
           },
           justifyContent: "space-evenly",
           alignItems: "center",
+          color: "white",
+          // backgroundColor: "#111",
         }}
       >
         <Box
@@ -194,7 +196,7 @@ function Series(props) {
               xs: "450px",
               md: "80vh",
             },
-            bgcolor: "background.paper",
+            // bgcolor: "background.paper",
             mt: "20px",
             p: 2,
             borderRadius: "30px",
@@ -211,8 +213,9 @@ function Series(props) {
             // height: "80vh",
             maxHeight: "100%",
             mt: "10px",
-            p: { md: 5 },
+            p: { xs: 3, md: 5 },
             borderRadius: "30px",
+            backgroundColor: "rgba(0, 0, 0, .7)",
           }}
         >
           <Typography
@@ -292,7 +295,7 @@ function Series(props) {
           <Box
             sx={{
               width: "100%",
-              bgcolor: "background.paper",
+              // bgcolor: "background.paper",
               mt: "20px",
               display: "flex",
               //   flexDirection: {
@@ -317,11 +320,11 @@ function Series(props) {
                 //   xs: "100%",
                 //   md: "45%",
                 // },
-                backgroundColor: "transparent",
+                // backgroundColor: "transparent",
                 shadow: "none",
-                hover: {
-                  backgroundColor: "transparent",
-                },
+                // hover: {
+                // backgroundColor: "transparent",
+                // },
               }}
               onClick={ToggleFav}
             >
@@ -360,7 +363,7 @@ function Series(props) {
           <Typography variant="h5" component="div" gutterBottom>
             CREATORS
           </Typography>
-          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>{cast}</Box>
+          <Box sx={{ width: "100%" }}>{cast}</Box>
         </Box>
       </Box>
     </>

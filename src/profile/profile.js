@@ -73,6 +73,7 @@ function Profile() {
               flexDirection: "column",
               mt: 6,
               fontWeight: "bold",
+              color: "white",
             }}
           >
             PROFILE

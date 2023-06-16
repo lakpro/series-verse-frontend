@@ -203,7 +203,7 @@ function DrawerMenu() {
           sx={{
             p: 2,
             height: 1,
-            backgroundColor: "#fff",
+            backgroundColor: "#121212",
             width: "50vw",
             maxWidth: "300px",
           }}
@@ -220,7 +220,7 @@ function DrawerMenu() {
               to="/home"
               style={{
                 textDecoration: "none",
-                color: "black",
+                color: "white",
                 // margin: "0 10px",
               }}
             >
@@ -228,14 +228,14 @@ function DrawerMenu() {
                 {/* <ListItemIcon>
                 <ImageIcon sx={{ color: "primary.main" }} />
               </ListItemIcon> */}
-                <ListItemText primary="TOP" />
+                <ListItemText primary="HOME" />
               </ListItemButton>
             </Link>
             <Link
               to="/search"
               style={{
                 textDecoration: "none",
-                color: "black",
+                color: "white",
                 // margin: "0 10px",
               }}
             >
@@ -251,7 +251,7 @@ function DrawerMenu() {
               to="/favourites"
               style={{
                 textDecoration: "none",
-                color: "black",
+                color: "white",
                 // margin: "0 10px",
               }}
             >

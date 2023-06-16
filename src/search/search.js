@@ -101,7 +101,7 @@ export default function CenteredTabs() {
 
   return (
     <>
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -111,22 +111,63 @@ export default function CenteredTabs() {
         }}
       >
         <Box sx={{ width: "100%", bgcolor: "background.paper", mt: "20px" }}>
-          <Tabs value={value} onChange={handleChange} centered>
+         */}
+      <div
+        style={{
+          width: "100%",
+          // maxWidth: "1500px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "10px",
+          marginTop: "100px",
+          flexDirection: "column",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            pt: 2,
+            pb: 5,
+            bgcolor: "background.paper",
+            width: "100%",
+            maxWidth: "1500px",
+            borderRadius: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: " 0 0 50px 50px  #111",
+          }}
+          // style={{  box-shadow:  }}
+        >
+          <Tabs value={value} onChange={handleChange} color={"white"} centered>
             <Tab label="ID" />
             <Tab label="NAME" />
           </Tabs>
         </Box>
         <Box
           sx={{
-            width: "90vw",
-            maxWidth: "900px",
-            mt: "10px",
             display: "flex",
+            flexWrap: "wrap",
+            pt: 2,
+            pb: 5,
+            bgcolor: "background.paper",
+            width: "100%",
+            maxWidth: "1500px",
+            margin: "10px",
+
+            borderRadius: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: " 0 0 50px 50px  #111",
           }}
         >
           <TextField
             fullWidth
             label="Search"
+            // width="80vw"
+            // maxWidth="500px"
+            // margin="10px"
             id="search"
             value={search}
             onChange={handleSearch}
@@ -141,32 +182,37 @@ export default function CenteredTabs() {
             }}
           />
         </Box>
-      </div>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "20px",
-        }}
-      >
+        {/* </div> */}
+        {/* <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "60px",
+            flexDirection: "column",
+          }}
+        > */}
         <Box
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            pt: 1,
+            pt: 2,
+            pb: 15,
             bgcolor: "background.paper",
             width: "100%",
             maxWidth: "1500px",
             borderRadius: 1,
             alignItems: "center",
             justifyContent: "center",
-            mt: 5,
+            color: "white",
+            boxShadow: " 0 0 50px 50px #111",
           }}
+          // style={{  box-shadow:  }}
         >
           {cards}
         </Box>
+        {/* </div> */}
       </div>
     </>
   );

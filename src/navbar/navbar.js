@@ -35,7 +35,13 @@ function ResponsiveAppBar() {
   }, [isLoggedIn, gid]);
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      style={{
+        background: "transparent",
+        boxShadow: "none",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <DrawerMenu />
@@ -51,7 +57,18 @@ function ResponsiveAppBar() {
               href={process.env.REACT_APP_BACKEND_URL + "/api/auth/google"}
               onClick={onSuccess}
               sx={{
-                display: { xs: "none", sm: "none", md: "flex" },
+                display: {
+                  xs: "none",
+                  sm: "none",
+                  md: "flex",
+                  backgroundColor: "transparent",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "lightblue",
+
+                    color: "black",
+                  },
+                },
               }}
             >
               Login{" "}

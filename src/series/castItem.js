@@ -31,6 +31,11 @@ export default function Item(props) {
           },
           alignItems: "center",
           justifyContent: "center",
+
+          "&:hover": {
+            opacity: [0.9, 0.8, 0.7],
+            // title,
+          },
         }}
         alt="Series profile"
         src={"https://image.tmdb.org/t/p/original" + props.profile_path}

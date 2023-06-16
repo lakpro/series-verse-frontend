@@ -83,8 +83,7 @@ export default function Favourites() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "20px",
-        flexDirection: "column",
+        marginTop: "60px",
       }}
     >
       {console.log("cards", cards)}
@@ -93,14 +92,17 @@ export default function Favourites() {
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            pt: 1,
+            pt: 2,
+            pb: 15,
             bgcolor: "background.paper",
             width: "100%",
             maxWidth: "1500px",
             borderRadius: 1,
             alignItems: "center",
             justifyContent: "center",
+            boxShadow: " 0 0 50px 50px #111",
           }}
+          // style={{  box-shadow:  }}
         >
           {cards}
         </Box>
@@ -113,6 +115,7 @@ export default function Favourites() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            color: "#FFFFFF",
           }}
         >
           NOTHING HERE YET !!

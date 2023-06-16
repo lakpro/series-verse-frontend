@@ -19,6 +19,12 @@ function App() {
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
+      primary: {
+        main: "#fafafa",
+      },
+      secondary: {
+        main: "#ff0000",
+      },
     },
   });
 
