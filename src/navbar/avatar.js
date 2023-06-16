@@ -17,7 +17,7 @@ import Divider from "@mui/material/Divider";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { hexToRgb } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { logOutUser } from "../redux/userSlice";
@@ -29,12 +29,20 @@ function AvatarMenu() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const image = useSelector((state) => state.user.image);
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const profile = () => {
+    // window.open(process.env.REACT_APP_FRONTEND_URL + "/profile");
+    window.open(process.env.REACT_APP_FRONTEND_URL + "/profile", "_self");
+  };
   const logout = () => {
     dispatch(logOutUser());
-    window.open(process.env.REACT_APP_BACKEND_URL + "/api/auth/logout");
+    window.open(
+      process.env.REACT_APP_BACKEND_URL + "/api/auth/logout",
+      "_self"
+    );
     // <Navigate to={process.env.REACT_APP_BACKEND_URL + "/api/auth/logout"} />;
     // <Link to={process.env.REACT_APP_BACKEND_URL + "/api/auth/logout"} />;
     // Navigate(process.env.REACT_APP_BACKEND_URL + "/api/auth/logout");
@@ -53,7 +61,7 @@ function AvatarMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Avatar alt="Profile Pic" src={image} />
           </IconButton>
         </Tooltip>
         <Menu
@@ -80,7 +88,7 @@ function AvatarMenu() {
                 display: "block",
                 position: "absolute",
                 top: 0,
-                right: 14,
+                right: 10,
                 width: 10,
                 height: 10,
                 bgcolor: "background.paper",
@@ -92,7 +100,7 @@ function AvatarMenu() {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={profile}>
             <Avatar /> Profile
           </MenuItem>
 

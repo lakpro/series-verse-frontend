@@ -10,13 +10,22 @@ import { Link } from "react-router-dom";
 function Menu() {
   return (
     <>
-      <Box
-        component="img"
-        href="/"
-        sx={{ display: { xs: "none", md: "flex" }, height: "50px" }}
-        alt="Your logo."
-        src={Logo}
-      />
+      <Link
+        to="/home"
+        style={{
+          textDecoration: "none",
+          // color: "white",
+          // margin: "0 10px",
+        }}
+      >
+        <Box
+          component="img"
+          // href="/home"
+          sx={{ display: { xs: "none", md: "flex" }, height: "50px", mr: 5 }}
+          alt="Your logo."
+          src={Logo}
+        />
+      </Link>
       <Box
         sx={{
           flexGrow: 1,
@@ -24,13 +33,22 @@ function Menu() {
           justifyContent: "center",
         }}
       >
-        <Box
-          component="img"
-          href=""
-          sx={{ display: { xs: "flex", md: "none" }, height: "45px" }}
-          alt="Your logo."
-          src={Logo}
-        />
+        <Link
+          to="/home"
+          style={{
+            textDecoration: "none",
+            color: "white",
+            margin: "0 10px",
+          }}
+        >
+          <Box
+            component="img"
+            href=""
+            sx={{ display: { xs: "flex", md: "none" }, height: "45px" }}
+            alt="Your logo."
+            src={Logo}
+          />
+        </Link>
       </Box>
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
         <Link

@@ -32,6 +32,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import DescriptionIcon from "@mui/icons-material/Description";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { Icon } from "@mui/material";
+import { useSelector } from "react-redux";
 
 function DrawerMenu() {
   // search
@@ -39,7 +41,28 @@ function DrawerMenu() {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const gid = useSelector((state) => state.user.gid);
+
+  async function onSuccess(response) {
+    // console.log("response", response);
+    // const check = await login();
+    // console.log("check", check);
+    // if (check) {
+    setIsLoggedIn(true);
+    // useDispatch(login(
+
+    // ));
+    // }
+  }
+
+  // const gid = useSelector((state) => state.user.gid);
+
+  React.useEffect(() => {
+    if (gid) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
+  }, [isLoggedIn, gid]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -193,25 +216,76 @@ function DrawerMenu() {
           <Divider sx={{ mb: 2 }} />
 
           <Box sx={{ mb: 2 }}>
-            <ListItemButton>
-              {/* <ListItemIcon>
+            <Link
+              to="/home"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                // margin: "0 10px",
+              }}
+            >
+              <ListItemButton>
+                {/* <ListItemIcon>
                 <ImageIcon sx={{ color: "primary.main" }} />
               </ListItemIcon> */}
-              <ListItemText primary="TOP" />
-            </ListItemButton>
-
-            <ListItemButton>
-              {/* <ListItemIcon>
+                <ListItemText primary="TOP" />
+              </ListItemButton>
+            </Link>
+            <Link
+              to="/search"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                // margin: "0 10px",
+              }}
+            >
+              <ListItemButton>
+                {/* <ListItemIcon>
                 <DescriptionIcon sx={{ color: "primary.main" }} />
               </ListItemIcon> */}
-              <ListItemText primary="Search" />
-            </ListItemButton>
+                <ListItemText primary="Search" />
+              </ListItemButton>
+            </Link>
 
-            <ListItemButton>
-              {/* <ListItemIcon>
+            <Link
+              to="/favourites"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                // margin: "0 10px",
+              }}
+            >
+              <ListItemButton>
+                {/* <ListItemIcon>
                 <FolderIcon sx={{ color: "primary.main" }} />
               </ListItemIcon> */}
-              <ListItemText primary="Favourite" />
+                <ListItemText primary="Favourite" />
+              </ListItemButton>
+            </Link>
+            <ListItemButton>
+              {!isLoggedIn ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href={process.env.REACT_APP_BACKEND_URL + "/api/auth/google"}
+                  onClick={onSuccess}
+                  sx={{
+                    display: { xs: "flex", md: "none" },
+                  }}
+                >
+                  Login{" "}
+                  <Icon
+                    component="img"
+                    src="https://img.icons8.com/color/48/000000/google-logo.png"
+                    sx={{
+                      fontSize: 20,
+                      marginLeft: 1,
+                    }}
+                  />
+                </Button>
+              ) : (
+                ""
+              )}
             </ListItemButton>
           </Box>
 

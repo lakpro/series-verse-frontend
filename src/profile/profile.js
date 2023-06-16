@@ -2,6 +2,8 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logInUser, logOutUser } from "../redux/userSlice";
+import { Avatar, Container, Divider, Stack, Typography } from "@mui/material";
+import Card from "./card";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -59,12 +61,46 @@ function Profile() {
 
   return (
     <>
-      <div>Profile Page </div>
-      <div>Logged In: {userGid ? "yes" : "no"}</div>
-      <div>Name: {userName}</div>
-      <div>Email: {userEmail}</div>
-      <div>Image: {userImage}</div>
-      <div>Gid: {userGid}</div>
+      {userGid ? (
+        <div>
+          <Typography
+            variant="h4"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // height: "100vh",
+              flexDirection: "column",
+              mt: 6,
+              fontWeight: "bold",
+            }}
+          >
+            PROFILE
+          </Typography>
+
+          <Card
+            name={userName}
+            email={userEmail}
+            image={userImage}
+            gid={userGid}
+          />
+        </div>
+      ) : (
+        <Typography
+          variant="h4"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            // height: "100vh",
+            flexDirection: "column",
+            mt: 6,
+            fontWeight: "bold",
+          }}
+        >
+          Please Login to view your profile
+        </Typography>
+      )}
     </>
   );
 }

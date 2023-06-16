@@ -332,22 +332,30 @@ function Series(props) {
                 <FavoriteBorderIcon fontSize="large" style={{ color: "red" }} />
               )}
             </Button>
-            <Button
-              variant="contained"
-              sx={{
-                p: 1,
-                mb: 2,
-                ml: 2,
-                // width: {
-                //   xs: "100%",
-                //   md: "45%",
-                // },
-              }}
-              onClick={sendMailReminder}
-              disabled={mailSent}
-            >
-              {mailSent ? "Mail Sent 📧" : "Add To Calander 📅"}
-            </Button>
+            {data ? (
+              data.next_episode_to_air ? (
+                <Button
+                  variant="contained"
+                  sx={{
+                    p: 1,
+                    mb: 2,
+                    ml: 2,
+                    // width: {
+                    //   xs: "100%",
+                    //   md: "45%",
+                    // },
+                  }}
+                  onClick={sendMailReminder}
+                  disabled={mailSent}
+                >
+                  {mailSent ? "Mail Sent 📧" : "Add To Calander 📅"}
+                </Button>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
           </Box>
           <Typography variant="h5" component="div" gutterBottom>
             CREATORS

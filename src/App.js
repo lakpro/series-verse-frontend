@@ -7,33 +7,42 @@ import Search from "./search/search";
 import Home from "./home/main";
 import Series from "./series/series";
 import Error from "./components/error";
-import Profile from "./components/profile";
+import Profile from "./profile/profile";
 import { Provider } from "react-redux";
 import Store from "./redux/store";
 import Favourites from "./favourites/favourites";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 function App() {
   // const store = configureStore();
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
+
   return (
     <>
-      <Provider store={Store}>
-        <BrowserRouter>
-          <Navbar />
-          {/* <SlideShow /> */}
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
-            <Route path="/search" element={<Search />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/series/:id" element={<Series />} />
-            <Route path="/404" element={<Error />} />
-            <Route path="/favourites" element={<Favourites />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-          </Routes>
-        </BrowserRouter>
-      </Provider>
+      <ThemeProvider theme={darkTheme}>
+        <Provider store={Store}>
+          <BrowserRouter>
+            <Navbar />
+            {/* <SlideShow /> */}
+            <Routes>
+              <Route path="/" element={<Navigate to="/home" />} />
+              {/* <Route path="/profile" element={<Profile />} /> */}
+              <Route path="/search" element={<Search />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/series/:id" element={<Series />} />
+              <Route path="/404" element={<Error />} />
+              <Route path="/favourites" element={<Favourites />} />
+              <Route path="*" element={<Navigate to="/404" />} />
+            </Routes>
+          </BrowserRouter>
+        </Provider>
+      </ThemeProvider>
       {/* <SeriesList /> */}
 
       {/* <Navbar2 /> */}
