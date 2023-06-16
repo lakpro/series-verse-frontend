@@ -6,6 +6,14 @@ import CastItem from "./castItem";
 import { styled } from "@mui/material/styles";
 // import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import login from "../components/login";
+// import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import SimpleSnackbar from "../components/snackBar";
+import { useSelector } from "react-redux";
 
 const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
@@ -25,7 +33,95 @@ function Series(props) {
   const [data, setData] = React.useState([]);
   const [cast, setCast] = React.useState([]);
   const [genres, setGenres] = React.useState([]);
+  const [fav, setFav] = React.useState(false);
+  const [gid, setGid] = React.useState("");
+  const [mailSent, setMailSent] = React.useState(false);
+  const userGid = useSelector((state) => state.user.gid);
 
+  //   React.useEffect(() => {
+  //     setGid(useSelector((state) => state.user.gid));
+  //   }, []);
+
+  React.useEffect(() => {
+    fetch(
+      process.env.REACT_APP_BACKEND_URL + "/api/favourite/get/" + userGid
+    ).then((response) =>
+      response.json().then((data) => {
+        console.log("data", data);
+        data.forEach((item) => {
+          if (item.data.id == id) {
+            setFav(true);
+          }
+        });
+      })
+    );
+  }, []);
+
+  const ToggleFav = async () => {
+    // console.log("check", check);
+    // await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
+    //   .then((response) => response.json())
+    //   .then(async (data) => {
+    //     console.log("profile", data);
+    //     console.log("profile", data.googleId);
+    //     if (data !== undefined) {
+    //       setGid(data.googleId);
+    //     }
+
+    if (!userGid) {
+      alert("Please login to add to favourites");
+      //   <SimpleSnackbar />;
+      return;
+    } else {
+      if (fav) {
+        fetch(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/favourite/remove/" +
+            userGid +
+            "/" +
+            id
+        );
+        console.log("removed");
+        setFav(false);
+      } else {
+        console.log(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/favourite/set/" +
+            userGid +
+            "/" +
+            id
+        );
+        fetch(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/favourite/set/" +
+            userGid +
+            "/" +
+            id
+        );
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     console.log("data", data);
+        //   });
+        console.log("added");
+        setFav(true);
+      }
+
+      //   setFav(!fav);
+    }
+  };
+
+  const sendMailReminder = async () => {
+    const check = await login();
+    console.log("check", check);
+    if (!check) {
+      alert("Please login to send reminder");
+      return;
+    } else {
+      // disable the button
+      setMailSent(true);
+      // send the mail
+    }
+  };
 
   const getInitialList = async () => {
     return await fetch(
@@ -115,6 +211,8 @@ function Series(props) {
             // height: "80vh",
             maxHeight: "100%",
             mt: "10px",
+            p: { md: 5 },
+            borderRadius: "30px",
           }}
         >
           <Typography
@@ -143,7 +241,12 @@ function Series(props) {
           <Typography variant="h4" component="div" gutterBottom>
             {data ? data.tagline : ""}
           </Typography>
-          <Typography variant="body1" component="div" gutterBottom>
+          <Typography
+            variant="body1"
+            component="div"
+            gutterBottom
+            textAlign="justify"
+          >
             {data ? data.overview : ""}
           </Typography>
 
@@ -192,39 +295,58 @@ function Series(props) {
               bgcolor: "background.paper",
               mt: "20px",
               display: "flex",
-              flexDirection: {
-                xs: "column",
-                md: "row",
-              },
-              justifyContent: "space-evenly",
+              //   flexDirection: {
+              //     xs: "column",
+              //     md: "row",
+              //   },
+              //   height: {
+              //     xs: "100%",
+              //     md: "100px",
+              //   },
+              //   justifyContent: "space-evenly",
               alignItems: "center",
             }}
           >
             <Button
-              variant="contained"
+              variant="icon"
               sx={{
                 p: 1,
                 mb: 2,
-                width: {
-                  xs: "100%",
-                  md: "45%",
+                // height: "100px",
+                // width: {
+                //   xs: "100%",
+                //   md: "45%",
+                // },
+                backgroundColor: "transparent",
+                shadow: "none",
+                hover: {
+                  backgroundColor: "transparent",
                 },
               }}
+              onClick={ToggleFav}
             >
-              Favourite 💖
+              {/* Favourite 💖 */}
+              {fav ? (
+                <FavoriteIcon fontSize="large" style={{ color: "red" }} />
+              ) : (
+                <FavoriteBorderIcon fontSize="large" style={{ color: "red" }} />
+              )}
             </Button>
             <Button
               variant="contained"
               sx={{
                 p: 1,
                 mb: 2,
-                width: {
-                  xs: "100%",
-                  md: "45%",
-                },
+                ml: 2,
+                // width: {
+                //   xs: "100%",
+                //   md: "45%",
+                // },
               }}
+              onClick={sendMailReminder}
+              disabled={mailSent}
             >
-              Mail Reminder 📅
+              {mailSent ? "Mail Sent 📧" : "Add To Calander 📅"}
             </Button>
           </Box>
           <Typography variant="h5" component="div" gutterBottom>
