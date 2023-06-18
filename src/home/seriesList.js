@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Item from "./seriesItem";
 import { Button } from "@mui/material";
+// import Auth from "../profile/autheniticate";
 
 const getInitialList = async (page) => {
   return await fetch(
@@ -24,11 +25,13 @@ export default function SeriesList() {
     //     // console.log(data);
     //     return d;
     //   });
+    // Auth().getProfile();
+
     getInitialList(page).then((d) => {
       d = d.data.results;
-      console.log("d", d);
+      // console.log("d", d);
       setData(d);
-      console.log("data", data);
+      // console.log("data", data);
       setPage(page + 1);
       // return d;
     });
@@ -65,7 +68,7 @@ export default function SeriesList() {
       );
     });
     setCards(cards);
-    console.log("cards", cards);
+    // console.log("cards", cards);
   }, [data]);
 
   return (
@@ -113,9 +116,9 @@ export default function SeriesList() {
         onClick={() => {
           getInitialList(page).then((d) => {
             d = d.data.results;
-            console.log("d", d);
+            // console.log("d", d);
             setData(data.concat(d));
-            console.log("data", data);
+            // console.log("data", data);
             setPage(page + 1);
             // return d;
           });

@@ -5,43 +5,62 @@ import Item from "./favouriteItem";
 import { Typography } from "@mui/material";
 
 export default function Favourites() {
-  const getInitialList = async () => {
-    let gid;
-    await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
-      .then((response) => response.json())
-      .then(async (data) => {
-        console.log("profile", data);
-        // console.log("profile", data.googleId);
-        if (data !== undefined) {
-          await fetch(
-            process.env.REACT_APP_BACKEND_URL +
-              "/api/favourite/get/" +
-              data.googleId
-          ).then((response) =>
-            response.json().then((data) => {
-              console.log("data", data);
-              setData(data);
-
-              const cards = data.map((item) => {
-                console.log("item", item);
-                return (
-                  <Item
-                    key={item.data.id}
-                    poster_path={item.data.poster_path}
-                    title={item.data.title}
-                    id={item.data.id}
-                    item={item.data}
-                  />
-                );
-              });
-              setCards(cards);
-              console.log("cards", cards);
-
-              return data;
-            })
-          );
-        }
+  const getStatus = async () => {
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user");
+    // console.log("res", res);
+    if (res) {
+      const data = await res.json().catch((err) => {
+        // console.log("err", err);
       });
+
+      // console.log("dataStatus", data);
+
+      if (data === undefined) return false;
+      else return true;
+    }
+    return false;
+  };
+
+  const getInitialList = async () => {
+    const status = await getStatus();
+    // console.log("status", status);
+    if (status) {
+      await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
+        .then((response) => response.json())
+        .then(async (data) => {
+          // console.log("profile", data);
+          // console.log("profile", data.googleId);
+          if (data !== undefined) {
+            await fetch(
+              process.env.REACT_APP_BACKEND_URL +
+                "/api/favourite/get/" +
+                data.googleId
+            ).then((response) =>
+              response.json().then((data) => {
+                // console.log("data", data);
+                setData(data);
+
+                const cards = data.map((item) => {
+                  // console.log("item", item);
+                  return (
+                    <Item
+                      key={item.data.id}
+                      poster_path={item.data.poster_path}
+                      title={item.data.title}
+                      id={item.data.id}
+                      item={item.data}
+                    />
+                  );
+                });
+                setCards(cards);
+                // console.log("cards", cards);
+
+                return data;
+              })
+            );
+          }
+        });
+    }
   };
 
   const [data, setData] = React.useState([]);
@@ -51,9 +70,9 @@ export default function Favourites() {
   React.useEffect(() => {
     getInitialList().then((d) => {
       // d = d.data.results;
-      console.log("d", d);
+      // console.log("d", d);
       setData(d);
-      console.log("data", data);
+      // console.log("data", data);
       // return d;
     });
   }, []);
@@ -61,7 +80,7 @@ export default function Favourites() {
   React.useEffect(() => {
     if (!data || data.length === 0) return;
     const cards = data.map((item) => {
-      console.log("item", item);
+      // console.log("item", item);
       return (
         <Item
           key={item.data.id}
@@ -73,7 +92,7 @@ export default function Favourites() {
       );
     });
     setCards(cards);
-    console.log("cards", cards);
+    // console.log("cards", cards);
   }, [data]);
 
   return (
@@ -86,7 +105,7 @@ export default function Favourites() {
         marginTop: "60px",
       }}
     >
-      {console.log("cards", cards)}
+      {/* {console.log("cards", cards)} */}
       {cards != "" ? (
         <Box
           sx={{

@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 export default function Item(props) {
   //   const { sx, ...other } = props;
   const next = `/series/${props.id}`;
-  console.log(props.poster_path);
+  // console.log(props.poster_path);
 
   if (props.poster_path === null) {
     return (

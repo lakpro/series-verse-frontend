@@ -7,35 +7,55 @@ import Card from "./card";
 
 function Profile() {
   const dispatch = useDispatch();
-  const getProfile = async () => {
-    return await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("profile", data);
-        console.log("profile", data.googleId);
-        if (data !== undefined) {
-          dispatch(
-            logInUser({
-              name: data.displayName,
-              email: data.email,
-              image: data.image,
-              gid: data.googleId,
-              login: true,
-            })
-          );
-        } else {
-          dispatch(
-            logOutUser({
-              name: "",
-              email: "",
-              image: "",
-              gid: "",
-              login: false,
-            })
-          );
-        }
-        return data;
+
+  const getStatus = async () => {
+    const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user");
+    // console.log("res", res);
+    if (res) {
+      const data = await res.json().catch((err) => {
+        // console.log("err", err);
       });
+
+      // console.log("dataStatus", data);
+
+      if (data === undefined) return false;
+      else return true;
+    }
+    return false;
+  };
+  const getProfile = async () => {
+    const status = await getStatus();
+    // console.log("status", status);
+    if (status) {
+      return await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("profile", data);
+          // console.log("profile", data.googleId);
+          if (data !== undefined) {
+            dispatch(
+              logInUser({
+                name: data.displayName,
+                email: data.email,
+                image: data.image,
+                gid: data.googleId,
+                login: true,
+              })
+            );
+          } else {
+            dispatch(
+              logOutUser({
+                name: "",
+                email: "",
+                image: "",
+                gid: "",
+                login: false,
+              })
+            );
+          }
+          return data;
+        });
+    }
   };
 
   const login = useSelector((state) => state.user.login);
@@ -50,13 +70,7 @@ function Profile() {
   //   const userGid = useSelector(userGid);
 
   React.useEffect(() => {
-    getProfile().then((p) => {
-      p = p.data;
-      console.log("p", p);
-      // setData(d);
-      // console.log("data", data);
-      // return d;
-    });
+    getProfile();
   }, []);
 
   return (
@@ -97,6 +111,7 @@ function Profile() {
             flexDirection: "column",
             mt: 6,
             fontWeight: "bold",
+            color: "white",
           }}
         >
           Please Login to view your profile

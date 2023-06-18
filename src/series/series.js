@@ -48,7 +48,7 @@ function Series(props) {
       process.env.REACT_APP_BACKEND_URL + "/api/favourite/get/" + userGid
     ).then((response) =>
       response.json().then((data) => {
-        console.log("data", data);
+        // console.log("data", data);
         data.forEach((item) => {
           if (item.data.id == id) {
             setFav(true);
@@ -82,16 +82,16 @@ function Series(props) {
             "/" +
             id
         );
-        console.log("removed");
+        // console.log("removed");
         setFav(false);
       } else {
-        console.log(
-          process.env.REACT_APP_BACKEND_URL +
-            "/api/favourite/set/" +
-            userGid +
-            "/" +
-            id
-        );
+        // console.log(
+        //   process.env.REACT_APP_BACKEND_URL +
+        //     "/api/favourite/set/" +
+        //     userGid +
+        //     "/" +
+        //     id
+        // );
         fetch(
           process.env.REACT_APP_BACKEND_URL +
             "/api/favourite/set/" +
@@ -103,7 +103,7 @@ function Series(props) {
         //   .then((data) => {
         //     console.log("data", data);
         //   });
-        console.log("added");
+        // console.log("added");
         setFav(true);
       }
 
@@ -134,12 +134,12 @@ function Series(props) {
   React.useEffect(() => {
     getInitialList().then((d) => {
       d = d.data;
-      console.log("d", d);
+      // console.log("d", d);
       setData(d);
       if (d == undefined) {
         navigate("/404", { replace: true });
       }
-      console.log("data", data);
+      // console.log("data", data);
       if (data) {
         const creators = d.created_by.map((item) => {
           return (
@@ -366,14 +366,14 @@ function Series(props) {
             ) : (
               ""
             )} */}
-            {console.log("data cal", data)}
+            {/* {console.log("data cal", data)}
             {console.log("next epi", data.next_episode_to_air)}
             {console.log(
               "next epi date",
               data.next_episode_to_air
                 ? data.next_episode_to_air.air_date
                 : "na"
-            )}
+            )} */}
 
             {data ? (
               data.next_episode_to_air ? (
@@ -382,6 +382,7 @@ function Series(props) {
                     name={data.name + " Release reminder by SeriesVerse"}
                     // lightMode="dark"
                     trigger="click"
+                    hideBranding={true}
                     // hideBackground={true}
                     startDate={data.next_episode_to_air.air_date}
                     options={["Apple", "Google", "Yahoo", "iCal"]}
