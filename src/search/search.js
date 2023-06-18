@@ -140,9 +140,15 @@ export default function CenteredTabs() {
           }}
           // style={{  box-shadow:  }}
         >
-          <Tabs value={value} onChange={handleChange} color={"white"} centered>
-            <Tab label="ID" />
-            <Tab label="NAME" />
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="secondary"
+            indicatorColor="secondary"
+            aria-label="secondary tabs example"
+          >
+            <Tab value="one" label="ID" />
+            <Tab value="two" label="NAME" />
           </Tabs>
         </Box>
         <Box

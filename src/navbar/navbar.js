@@ -61,10 +61,11 @@ function ResponsiveAppBar() {
                   xs: "none",
                   sm: "none",
                   md: "flex",
-                  backgroundColor: "transparent",
+                  backgroundColor: "rgba(0, 0, 0, .7)",
+
                   color: "white",
                   "&:hover": {
-                    backgroundColor: "lightblue",
+                    backgroundColor: "rgba(173,216,230, .7)",
 
                     color: "black",
                   },

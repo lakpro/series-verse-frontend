@@ -14,6 +14,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SimpleSnackbar from "../components/snackBar";
 import { useSelector } from "react-redux";
+import { AddToCalendarButton } from "add-to-calendar-button-react";
 
 const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
@@ -110,15 +111,14 @@ function Series(props) {
     }
   };
 
-  const sendMailReminder = async () => {
-    const check = await login();
-    console.log("check", check);
-    if (!check) {
-      alert("Please login to send reminder");
+  const sendMailReminder = async (data) => {
+    if (!userGid) {
+      alert("Please login to send reminder.");
       return;
     } else {
       // disable the button
       setMailSent(true);
+
       // send the mail
     }
   };
@@ -296,6 +296,7 @@ function Series(props) {
             sx={{
               width: "100%",
               // bgcolor: "background.paper",
+              mb: 2,
               mt: "20px",
               display: "flex",
               //   flexDirection: {
@@ -306,7 +307,7 @@ function Series(props) {
               //     xs: "100%",
               //     md: "100px",
               //   },
-              //   justifyContent: "space-evenly",
+              // justifyContent: "space-evenly",
               alignItems: "center",
             }}
           >
@@ -314,7 +315,7 @@ function Series(props) {
               variant="icon"
               sx={{
                 p: 1,
-                mb: 2,
+                mr: 2,
                 // height: "100px",
                 // width: {
                 //   xs: "100%",
@@ -335,7 +336,7 @@ function Series(props) {
                 <FavoriteBorderIcon fontSize="large" style={{ color: "red" }} />
               )}
             </Button>
-            {data ? (
+            {/* {data ? (
               data.next_episode_to_air ? (
                 <Button
                   variant="contained"
@@ -348,7 +349,13 @@ function Series(props) {
                     //   md: "45%",
                     // },
                   }}
-                  onClick={sendMailReminder}
+                  onClick={
+                    data
+                      ? data.next_episode_to_air
+                        ? sendMailReminder(data)
+                        : ""
+                      : ""
+                  }
                   disabled={mailSent}
                 >
                   {mailSent ? "Mail Sent 📧" : "Add To Calander 📅"}
@@ -358,8 +365,55 @@ function Series(props) {
               )
             ) : (
               ""
+            )} */}
+            {console.log("data cal", data)}
+            {console.log("next epi", data.next_episode_to_air)}
+            {console.log(
+              "next epi date",
+              data.next_episode_to_air
+                ? data.next_episode_to_air.air_date
+                : "na"
+            )}
+
+            {data ? (
+              data.next_episode_to_air ? (
+                data.next_episode_to_air.air_date ? (
+                  <AddToCalendarButton
+                    name={data.name + " Release reminder by SeriesVerse"}
+                    // lightMode="dark"
+                    trigger="click"
+                    // hideBackground={true}
+                    startDate={data.next_episode_to_air.air_date}
+                    options={["Apple", "Google", "Yahoo", "iCal"]}
+                    styleLight="--btn-background: rgba(0, 0, 0, .6); --btn-border: none; .atcb-button{background-color:#111;} --modal-background: #111; --btn-text: #fff; --font: Georgia, 'Times New Roman', Times, serif;"
+                    styleDark="--btn-background: rgba(0, 0, 0, .6); --btn-border: none;"
+                  ></AddToCalendarButton>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )
+            ) : (
+              ""
             )}
           </Box>
+          {/* <AddToCalendarButton
+            event={{
+              name: data ? data.name : "",
+              details: data ? data.overview : "",
+              location: "Online",
+              // startsAt: data ? data.next_episode_to_air.air_date : "",
+              startsAt: "",
+              // endsAt: data ? data.next_episode_to_air.air_date : "",
+              endsAt: "",
+            }}
+          /> */}
+          {/* <AddToCalendarButton
+            name="Test-Event"
+            startDate="2023-05-22"
+            options={["Apple", "Google", "Yahoo", "iCal"]}
+          ></AddToCalendarButton> */}
           <Typography variant="h5" component="div" gutterBottom>
             CREATORS
           </Typography>

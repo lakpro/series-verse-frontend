@@ -14,6 +14,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "add-to-calendar-button": "^2.2.9",
+    "add-to-calendar-button-react": "^2.2.7",
     "dotenv": "^16.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -47,5 +49,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolve.fallback": {
+    "stream": false,
+    "buffer": false,
+    "crypto": false,
+    "http": false,
+    "https": false,
+    "os": false,
+    "path": false,
+    "tty": false,
+    "zlib": false,
+    "fs": false,
+    "net": false
   }
 }

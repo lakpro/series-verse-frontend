@@ -6,6 +6,15 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "./../public/sv_logo.png";
 import { Link } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Favourites from "../favourites/favourites";
+import Home from "../home/main";
+import Search from "../search/search";
 // import { Location } from "react-router-dom";
 // import { use } from "../../../series-verse-backend/routes/seriesRouter";
 
@@ -16,22 +25,19 @@ function Menu() {
   const [search, setSearch] = React.useState(false);
   const [favourites, setFavourites] = React.useState(false);
 
-  function handleHighlightTab() {
-    console.log(window.location.pathname);
-    if (window.location.pathname === "home") {
-      setHome(true);
-      setSearch(false);
-      setFavourites(false);
-    } else if (window.location.pathname === "search") {
-      setHome(false);
-      setSearch(true);
-      setFavourites(false);
-    } else if (window.location.pathname === "favourites") {
-      setHome(false);
-      setSearch(false);
-      setFavourites(true);
-    }
-  }
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    event.preventDefault();
+    setValue(newValue);
+  };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (value === 0) <Home />;
+  //   else if (value === 1) <Search />;
+  //   else if (value === 2) <Favourites />;
+  // };
 
   return (
     <>
@@ -89,7 +95,28 @@ function Menu() {
           width: "100%",
         }}
       >
-        <Link
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+          // onClick={handleSubmit}
+        >
+          <Link to="/home" style={{ textDecoration: "none", color: "white" }}>
+            <Tab value="one" label="HOME" />
+          </Link>
+          <Link to="/search" style={{ textDecoration: "none", color: "white" }}>
+            <Tab value="two" label="SEARCH" />
+          </Link>
+          <Link
+            to="/favourites"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <Tab value="three" label="FAVOURITES" />
+          </Link>
+        </Tabs>
+        {/* <Link
           to="/home"
           style={{
             textDecoration: "none",
@@ -109,7 +136,7 @@ function Menu() {
                 color: "#FF0000",
                 // backgroundColor: {(Location.pathname) === "/home" ? "red" : ""}
               },
-            }}
+            }} 
           >
             HOME
           </MenuItem>
@@ -146,8 +173,8 @@ function Menu() {
             color: "white",
             margin: "0 10px",
           }}
-        >
-          <MenuItem
+        > */}
+        {/* <MenuItem
             onClick={handleHighlightTab}
             style={
               favourites
@@ -163,7 +190,7 @@ function Menu() {
           >
             Favourite
           </MenuItem>
-        </Link>
+        </Link> */}
       </Box>
     </>
   );
