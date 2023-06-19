@@ -3,64 +3,65 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Item from "./favouriteItem";
 import { Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export default function Favourites() {
-  const getStatus = async () => {
-    const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user");
-    // console.log("res", res);
-    if (res) {
-      const data = await res.json().catch((err) => {
-        // console.log("err", err);
-      });
+  // const getStatus = async () => {
+  //   const res = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user");
+  //   // console.log("res", res);
+  //   if (res) {
+  //     const data = await res.json().catch((err) => {
+  //       // console.log("err", err);
+  //     });
 
-      // console.log("dataStatus", data);
+  //     // console.log("dataStatus", data);
 
-      if (data === undefined) return false;
-      else return true;
-    }
-    return false;
-  };
+  //     if (data === undefined) return false;
+  //     else return true;
+  //   }
+  //   return false;
+  // };
+
+  const gid = useSelector((state) => state.user.gid);
 
   const getInitialList = async () => {
-    const status = await getStatus();
+    // const status = await getStatus();
     // console.log("status", status);
-    if (status) {
-      await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
-        .then((response) => response.json())
-        .then(async (data) => {
-          // console.log("profile", data);
-          // console.log("profile", data.googleId);
-          if (data !== undefined) {
-            await fetch(
-              process.env.REACT_APP_BACKEND_URL +
-                "/api/favourite/get/" +
-                data.googleId
-            ).then((response) =>
-              response.json().then((data) => {
-                // console.log("data", data);
-                setData(data);
+    if (gid) {
+      // await fetch(process.env.REACT_APP_BACKEND_URL + "/api/user")
+      //   .then((response) => response.json())
+      //   .then(async (data) => {
+      //     // console.log("profile", data);
+      //     // console.log("profile", data.googleId);
+      //     if (data !== undefined) {
+      await fetch(
+        process.env.REACT_APP_BACKEND_URL + "/api/favourite/get/" + gid
+      ).then((response) =>
+        response.json().then((data) => {
+          // console.log("data", data);
+          setData(data);
 
-                const cards = data.map((item) => {
-                  // console.log("item", item);
-                  return (
-                    <Item
-                      key={item.data.id}
-                      poster_path={item.data.poster_path}
-                      title={item.data.title}
-                      id={item.data.id}
-                      item={item.data}
-                    />
-                  );
-                });
-                setCards(cards);
-                // console.log("cards", cards);
-
-                return data;
-              })
+          const cards = data.map((item) => {
+            // console.log("item", item);
+            return (
+              <Item
+                key={item.data.id}
+                poster_path={item.data.poster_path}
+                title={item.data.title}
+                id={item.data.id}
+                item={item.data}
+              />
             );
-          }
-        });
+          });
+          setCards(cards);
+          // console.log("cards", cards);
+
+          return data;
+        })
+      );
     }
+    // });
+    // }
   };
 
   const [data, setData] = React.useState([]);

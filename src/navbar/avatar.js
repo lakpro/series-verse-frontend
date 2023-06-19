@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hexToRgb } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { logOutUser } from "../redux/userSlice";
+import { Persistor } from "../redux/store";
 
 function AvatarMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -38,7 +39,19 @@ function AvatarMenu() {
     window.open(process.env.REACT_APP_FRONTEND_URL + "/profile", "_self");
   };
   const logout = () => {
-    dispatch(logOutUser());
+    // dispatch(logOutUser());
+    dispatch({ type: "LOGOUT" });
+    Persistor.purge();
+    // dispatch(
+    //   logOutUser({
+    //     name: "",
+    //     email: "",
+    //     image: "",
+    //     gid: "",
+    //     login: false,
+    //   })
+    // );
+
     window.open(
       process.env.REACT_APP_BACKEND_URL + "/api/auth/logout",
       "_self"

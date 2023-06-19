@@ -42,27 +42,30 @@ function DrawerMenu() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const gid = useSelector((state) => state.user.gid);
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(
+  //   useSelector((state) => state.user.login)
+  // );
+  const loggedIn = useSelector((state) => state.user.login);
+  // const gid = useSelector((state) => state.user.gid);
 
-  async function onSuccess(response) {
-    // console.log("response", response);
-    // const check = await login();
-    // console.log("check", check);
-    // if (check) {
-    setIsLoggedIn(true);
-    // useDispatch(login(
+  // async function onSuccess(response) {
+  //   // console.log("response", response);
+  //   // const check = await login();
+  //   // console.log("check", check);
+  //   // if (check) {
+  //   setIsLoggedIn(true);
+  //   // useDispatch(login(
 
-    // ));
-    // }
-  }
+  //   // ));
+  //   // }
+  // }
 
   // const gid = useSelector((state) => state.user.gid);
 
-  React.useEffect(() => {
-    if (gid) setIsLoggedIn(true);
-    else setIsLoggedIn(false);
-  }, [isLoggedIn, gid]);
+  // React.useEffect(() => {
+  //   if (gid) setIsLoggedIn(true);
+  //   else setIsLoggedIn(false);
+  // }, [isLoggedIn, gid]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -263,12 +266,12 @@ function DrawerMenu() {
               </ListItemButton>
             </Link>
             <ListItemButton>
-              {!isLoggedIn ? (
+              {!loggedIn ? (
                 <Button
                   variant="contained"
                   color="primary"
                   href={process.env.REACT_APP_BACKEND_URL + "/api/auth/google"}
-                  onClick={onSuccess}
+                  // onClick={onSuccess}
                   sx={{
                     display: { xs: "flex", md: "none" },
                   }}

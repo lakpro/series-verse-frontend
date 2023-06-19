@@ -9,9 +9,10 @@ import Series from "./series/series";
 import Error from "./components/error";
 import Profile from "./profile/profile";
 import { Provider } from "react-redux";
-import Store from "./redux/store";
+import { Store, Persistor } from "./redux/store";
 import Favourites from "./favourites/favourites";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   // const store = configureStore();
@@ -32,21 +33,23 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <Provider store={Store}>
-          <BrowserRouter>
-            <Navbar />
-            {/* <SlideShow /> */}
-            <Routes>
-              <Route path="/" element={<Navigate to="/home" />} />
-              {/* <Route path="/profile" element={<Profile />} /> */}
-              <Route path="/search" element={<Search />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/series/:id" element={<Series />} />
-              <Route path="/404" element={<Error />} />
-              <Route path="/favourites" element={<Favourites />} />
-              <Route path="*" element={<Navigate to="/404" />} />
-            </Routes>
-          </BrowserRouter>
+          <PersistGate loading={null} persistor={Persistor}>
+            <BrowserRouter>
+              <Navbar />
+              {/* <SlideShow /> */}
+              <Routes>
+                <Route path="/" element={<Navigate to="/home" />} />
+                {/* <Route path="/profile" element={<Profile />} /> */}
+                <Route path="/search" element={<Search />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/series/:id" element={<Series />} />
+                <Route path="/404" element={<Error />} />
+                <Route path="/favourites" element={<Favourites />} />
+                <Route path="*" element={<Navigate to="/404" />} />
+              </Routes>
+            </BrowserRouter>
+          </PersistGate>
         </Provider>
       </ThemeProvider>
       {/* <SeriesList /> */}
