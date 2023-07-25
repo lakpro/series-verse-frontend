@@ -13,6 +13,7 @@ import { Store, Persistor } from "./redux/store";
 import Favourites from "./favourites/favourites";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { PersistGate } from "redux-persist/integration/react";
+import Msg from "./navbar/msg";
 
 function App() {
   // const store = configureStore();
@@ -35,6 +36,7 @@ function App() {
         <Provider store={Store}>
           <PersistGate loading={null} persistor={Persistor}>
             <BrowserRouter>
+              <Msg />
               <Navbar />
               {/* <SlideShow /> */}
               <Routes>
